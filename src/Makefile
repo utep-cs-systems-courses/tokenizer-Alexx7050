@@ -1,6 +1,6 @@
 
 # to list object files
-OBJS = tester.o uimain.o
+OBJS = tester.o uimain.o tokenizer.o
 
 #-g for debug, -03 optimization 
 CFLAGS =-g -03
