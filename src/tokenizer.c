@@ -57,12 +57,12 @@ char *word_terminator(char *word)
 int count_words(char *str)
 {
   int count = 0;
-  while (str != word_terminator(str))
+  for (int i = 0; i<sizeof(str); i++)
   {
-    str = word_terminator(str);
-    count++;
+    if (space_char(str[i+1]))
+      count++;
   }
-  return count;
+  return count+1;
 }
 
 /* Returns a fresly allocated new zero-terminated string 
