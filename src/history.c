@@ -59,5 +59,15 @@ void print_history(List *list)
 /*Free the history list and the strings it references. */
 void free_history(List *list)
 {
-  
+  Item *temp = list->root;
+  while(temp->next!=NULL)
+  {
+    Item *curr = temp;  //Current item
+    free(curr->str);  //Free string in item
+    free(curr);  //Free item
+    temp = temp->next;  //Moves on to next item
+  }
+  free(temp->str);  //Free string in last item
+  free(temp);  //Free last item
+  free(list);   //Free linkedlist
 }
