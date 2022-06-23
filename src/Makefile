@@ -1,5 +1,5 @@
 # for convenience, define variable $(OBJS) to list of object files
-OBJS= history.o tokenizer.o tokenizer-test.o #uimain.o 
+OBJS= history.o tokenizer.o uimain.o 
 
 # compiler flags. -g for debug, -O3 for optimization
 CFLAGS=-g -O3

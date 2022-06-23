@@ -9,7 +9,7 @@ int main()
 {
   
   char str[MAX];
-  List *linkedlist = init_history();
+  List *list = init_history();
     
   while(1)  //Keeps prompting 
   {
@@ -23,25 +23,31 @@ int main()
 
     else if (str[0] == 'h')  //Prints history
     {
-      print_history(linkedlist);
+      printf("----\n");
+      print_history(list);
+      printf("----\n");
     }
-
+    
     else if (str[0] == '!')
     {
       int id_num = atoi(str+1);   //Type cast from str to int
-      char *history = get_history(linkedlist, id_num);
-      printf("You selected !%d: %s", history);
+      char *history = get_history(list, id_num);
+      printf("You selected !%d: %s\n", id_num, history);
+      char **tokens = tokenize(history);
+      print_tokens(tokens);
+      free_tokens(tokens);
     }
     else
     {
       char **tokens = tokenize(str);
       print_tokens(tokens);
-      add_history(linkedlist, str);
       free_tokens(tokens);
+      add_history(list, str);
     }
   }
 
   done:
   printf("Bye!\n");
   return 0;
+  
 }

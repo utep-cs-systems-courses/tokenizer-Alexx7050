@@ -4,8 +4,10 @@
 void main()
 {
   char pinput[] = "Hello nice people!";
-  char pinput2[] = "hey world !";
-
+  char pinput2[] = "hey world\t";
+  char pinput3[] = "Hello brother from another mother!";
+  char pinput4[] = "I like dancing";
+  
   char *x;
   int n;
   x = word_start(pinput);
@@ -19,4 +21,12 @@ void main()
   printf("\nTest 2\n");
   char **str2 = tokenize(pinput2);
   print_tokens(str2);
+
+  printf("\nTest 3\n");
+  char **str3 = tokenize(pinput3);
+  print_tokens(str3);
+
+  printf("\nTest 4\n");
+  char **str4 = tokenize(pinput4);
+  print_tokens(str4);
 }

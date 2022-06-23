@@ -59,12 +59,15 @@ char *word_terminator(char *word)
 int count_words(char *str)
 {
   int count = 0;
-  for (int i = 0; str[i+1]!='\0'; i++)
+  char *pstart = word_start(str);
+  while (*pstart != 0)
   {
-    if (space_char(str[i]))
-      count++;
+    if (non_space_char(*pstart))
+      count+=1;
+    pstart = word_terminator(pstart);
+    pstart = word_start(pstart);
   }
-  return count+1;
+  return count;  
 }
 
 /* Returns a fresly allocated new zero-terminated string 
@@ -76,6 +79,7 @@ char *copy_str(char *inStr, short len)
   {
     new_string[i] = inStr[i];   //Copies string of certain length 
   }
+  new_string[len] = '\0';  //Set null terminator
   return new_string;
 }
 
@@ -100,24 +104,27 @@ char **tokenize(char* str)
     result[i] = copy_str(start, len);  
     start = word_terminator(start);   //moves on to the next word
   }
+  result[tokens] = '\0';  //Null terminator
   return result;
 }
 
 /* Prints all tokens. */
 void print_tokens(char **tokens)
 {
+  printf("-----\n");
   for( int i=0; tokens[i]!=0; i++)
   {
     printf("Token[%d]: %s\n", i, tokens[i]);  //Print index
   }
+  printf("-----\n");
 }
 
 /* Frees all tokens and the vector containing themx. */
 void free_tokens(char **tokens)
 {
-  for (int i = 0; i< sizeof(tokens); i++)
+  for (int i = 0; tokens[i]; i++)
   {
     free(tokens[i]);  // Frees individaul word
   }
-  free(tokens);
+  free(tokens);  //Frees token space
 }

@@ -6,8 +6,9 @@
 /* Initialize the linked list to keep the history. */
 List* init_history()
 {
-  List *pl = malloc(sizeof(List));  //Declare enough space for list
-  return pl;
+  List *LL = malloc(sizeof(List));  //Declare enough space for list
+  LL->root = malloc(sizeof(Item));
+  return LL;
 }
 
 /* Add a history item to the end of the list.
@@ -16,11 +17,11 @@ List* init_history()
 */
 void add_history(List *list, char *str)
 {
-  Item *item = malloc(sizeof(Item));  //declare space for item
+  Item *item = malloc(sizeof(Item));  //declare space for new item
   Item *temp = list->root;   //Temp variable for traversing linked list
   int id = 1;
 
-  while (temp->next != NULL)  //Checks for end of list
+  while (temp->next != 0)  //Checks for end of list
   {
     temp = temp->next;
     ++id;
@@ -29,7 +30,7 @@ void add_history(List *list, char *str)
   //Adds new item with a string and id
   temp->next = item;
   item->id = id;
-  item->str = str;
+  item->str = copy_str(str,sizeof(str));
 }
 
 /* Retrieve the string stored in the node where Item->id == id.
@@ -41,7 +42,7 @@ char *get_history(List *list, int id)
 
   while (temp->id != id)
     temp = temp->next;
-  return temp->str;   //retrieves string 
+  return (temp->str) ? temp->str : "Not found";   //retrieves string 
   
 }
 
@@ -49,7 +50,7 @@ char *get_history(List *list, int id)
 void print_history(List *list)
 {
   Item *temp = list->root;
-  while (temp != NULL)    //Traverses entire list
+  while (temp != 0)    //Traverses entire list
   {
     printf("%d: %s\n", temp->id, temp->str);
     temp = temp->next;
@@ -60,11 +61,11 @@ void print_history(List *list)
 void free_history(List *list)
 {
   Item *temp = list->root;
-  while(temp->next!=NULL)
+  while(temp->next!=0)
   {
     Item *curr = temp;  //Current item
-    free(curr->str);  //Free string in item
-    free(curr);  //Free item
+    free(curr->str);  //Free string in current item
+    free(curr);  //Free current item
     temp = temp->next;  //Moves on to next item
   }
   free(temp->str);  //Free string in last item
