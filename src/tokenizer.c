@@ -69,7 +69,7 @@ int count_words(char *str)
    containing <len> chars from <inStr> */
 char *copy_str(char *inStr, short len)
 {
-  char *new_string = (char*)malloc((len+1) * sizeof(char));  //Declares memory space
+  char *new_string = malloc((len+1) * sizeof(char));  //Declares memory space
   for( int i = 0; i<len; i++)
   {
     new_string[i] = inStr[i];   //Copies string of certain length 
@@ -90,7 +90,7 @@ char *copy_str(char *inStr, short len)
 char **tokenize(char* str)
 {
   int tokens = count_words(str);   //Number of words/tokens
-  char **result = (char*)malloc((tokens+1)*sizeof(char));  //Declares space
+  char **result = malloc((tokens+1)*sizeof(char));  //Declares space
   char *start = word_start(str);   //beginning of string
   for(int i=0; i<tokens; i++)
   {

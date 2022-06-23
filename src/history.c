@@ -6,7 +6,7 @@
 /* Initialize the linked list to keep the history. */
 List* init_history()
 {
-  List *pl = (struct node*)malloc(sizeof(struct node));  //Declare enough space for list
+  List *pl = malloc(sizeof(List));  //Declare enough space for list
   return pl;
 }
 
@@ -16,7 +16,7 @@ List* init_history()
 */
 void add_history(List *list, char *str)
 {
-  Item *item = (struct node*)malloc(sizeof(Item));  //declare space for item
+  Item *item = malloc(sizeof(Item));  //declare space for item
   Item *temp = list->root;   //Temp variable for traversing linked list
   int id = 1;
 
@@ -39,9 +39,10 @@ char *get_history(List *list, int id)
 {
   Item *temp = list->root;  //Temp variable for traversing list
 
-  if (temp->id == id)
-    return temp->str
-  get_history(temp->next, id);
+  while (temp->id != id)
+    temp = temp->next;
+  return temp->str;   //retrieves string 
+  
 }
 
 /*Print the entire contents of the list. */
@@ -51,7 +52,7 @@ void print_history(List *list)
   while (temp != NULL)    //Traverses entire list
   {
     printf("%d: %s\n", temp->id, temp->str);
-    temp = temp->next
+    temp = temp->next;
   }
 }
 
