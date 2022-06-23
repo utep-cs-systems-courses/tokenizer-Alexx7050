@@ -3,7 +3,8 @@
 
 void main()
 {
-  char pinput[] = "Hello world !";
+  char pinput[] = "Hello nice people!";
+  char pinput2[] = "hey world !";
 
   char *x;
   int n;
@@ -15,4 +16,7 @@ void main()
   printf("The number of words are: %d\n", n);
   char **str = tokenize(pinput);
   print_tokens(str);
+  printf("\nTest 2\n");
+  char **str2 = tokenize(pinput2);
+  print_tokens(str2);
 }

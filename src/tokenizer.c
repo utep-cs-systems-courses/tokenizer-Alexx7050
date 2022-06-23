@@ -7,7 +7,7 @@
    Zero terminators are not printable (therefore false) */
 int space_char(char c)
 {
-  if (c == ' ' || c == '\t')
+  if (c == ' ' || c == '\t' || c == '\0')
   {
     return 1;
   }
@@ -19,7 +19,7 @@ int space_char(char c)
    Zero terminators are not printable (therefore false) */ 
 int non_space_char(char c)
 {
-  if (c == ' ' || c == '\t' || c == '\0')
+  if (c == ' ' || c == '\t')
   {
     return 0;
   }
@@ -31,11 +31,13 @@ int non_space_char(char c)
    str does not contain any words. */
 char *word_start(char *str)
 {
+  char *pstart;
   for( int i = 0; i < sizeof(str); i++)
   {
     if (non_space_char(str[i]))
     {
-      return &str[i];
+      pstart = &str[i];
+      return pstart;
     }
   }
 }
@@ -57,9 +59,9 @@ char *word_terminator(char *word)
 int count_words(char *str)
 {
   int count = 0;
-  for (int i = 0; i<sizeof(str); i++)
+  for (int i = 0; str[i+1]!='\0'; i++)
   {
-    if (space_char(str[i+1]))
+    if (space_char(str[i]))
       count++;
   }
   return count+1;
@@ -74,7 +76,6 @@ char *copy_str(char *inStr, short len)
   {
     new_string[i] = inStr[i];   //Copies string of certain length 
   }
-  new_string[len+1] = '\0';    //Insert null terminator
   return new_string;
 }
 
@@ -90,10 +91,11 @@ char *copy_str(char *inStr, short len)
 char **tokenize(char* str)
 {
   int tokens = count_words(str);   //Number of words/tokens
-  char **result = malloc((tokens+1)*sizeof(char));  //Declares space
-  char *start = word_start(str);   //beginning of string
+  char **result = malloc((tokens+1)*sizeof(char*));  //Declares space
+  char *start = word_start(str);
   for(int i=0; i<tokens; i++)
   {
+    start = word_start(start);
     int len = (word_terminator(start) - word_start(start));   //length for copy_str
     result[i] = copy_str(start, len);  
     start = word_terminator(start);   //moves on to the next word
@@ -104,18 +106,18 @@ char **tokenize(char* str)
 /* Prints all tokens. */
 void print_tokens(char **tokens)
 {
-  for( int i=0; i<sizeof(tokens); i++)
+  for( int i=0; tokens[i]!=0; i++)
   {
-    printf("\nToken[%d]: ", i);  //Print index
-    for(int j=0; j<sizeof(tokens[i]);j++)
-    {
-      printf(" %s", tokens[i][j]);   //Print value
-    }
+    printf("Token[%d]: %s\n", i, tokens[i]);  //Print index
   }
 }
 
 /* Frees all tokens and the vector containing themx. */
 void free_tokens(char **tokens)
 {
+  for (int i = 0; i< sizeof(tokens); i++)
+  {
+    free(tokens[i]);  // Frees individaul word
+  }
   free(tokens);
 }
