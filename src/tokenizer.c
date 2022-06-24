@@ -100,7 +100,7 @@ char **tokenize(char* str)
   for(int i=0; i<tokens; i++)
   {
     start = word_start(start);
-    int len = (word_terminator(start) - word_start(start));   //length for copy_str
+    int len = (word_terminator(start) - word_start(start));   //length of string
     result[i] = copy_str(start, len);  
     start = word_terminator(start);   //moves on to the next word
   }
@@ -114,7 +114,7 @@ void print_tokens(char **tokens)
   printf("-----\n");
   for( int i=0; tokens[i]!=0; i++)
   {
-    printf("Token[%d]: %s\n", i, tokens[i]);  //Print index
+    printf("Token[%d]: %s\n", i, tokens[i]);  //Print index & value
   }
   printf("-----\n");
 }
@@ -126,5 +126,5 @@ void free_tokens(char **tokens)
   {
     free(tokens[i]);  // Frees individaul word
   }
-  free(tokens);  //Frees token space
+  free(tokens);  //Frees actual token space
 }
