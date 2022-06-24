@@ -7,7 +7,7 @@
 List* init_history()
 {
   List *LL = malloc(sizeof(List));  //Declare enough space for list
-  LL->root = malloc(sizeof(Item));
+  LL->root = malloc(sizeof(Item));  //Declare space for item node
   return LL;
 }
 
@@ -52,7 +52,7 @@ void print_history(List *list)
   Item *temp = list->root;
   while (temp != 0)    //Traverses entire list
   {
-    printf("%d: %s\n", temp->id, temp->str);
+    printf("%d: %s\n", temp->id, temp->str);  //Prints id & string
     temp = temp->next;
   }
 }
