@@ -14,7 +14,7 @@ int main()
   while(1)  //Keeps prompting 
   {
     printf("Tokenizer:\n Quit: 'q'\n History: 'h'\n"); 
-    printf("Specific History do '!' followed by a number 1-9 \n Or simply enter a sentence\n");
+    printf("Specific History do '!' followed by a number \n Or simply enter a sentence\n");
     printf("$ ");
     fgets(str, MAX, stdin);   //takes input
 
@@ -31,22 +31,22 @@ int main()
     else if (str[0] == '!')
     {
       int id_num = atoi(str+1);   //Type cast from str to int
-      char *history = get_history(list, id_num);
-      printf("You selected !%d: %s\n", id_num, history);
-      char **tokens = tokenize(history);
+      char *history = get_history(list, id_num);  //get history from specific id
+      printf("You selected !%d: %s\n", id_num, history);  
+      char **tokens = tokenize(history);  //tokenize history
       print_tokens(tokens);
-      free_tokens(tokens);
+      free_tokens(tokens);  
     }
     else
     {
-      char **tokens = tokenize(str);
+      char **tokens = tokenize(str);    //tokenizer
       print_tokens(tokens);
       free_tokens(tokens);
-      add_history(list, str);
+      add_history(list, str);   //Adds string to history
     }
   }
 
-  done:
+  done:   //Program Exit
   printf("Bye!\n");
   return 0;
   
