@@ -30,7 +30,7 @@ void add_history(List *list, char *str)
   //Adds new item with a string and id
   temp->next = item;
   item->id = id;
-  item->str = copy_str(str,sizeof(str));
+  item->str = copy_str(str, str_length(str));
 }
 
 /* Retrieve the string stored in the node where Item->id == id.

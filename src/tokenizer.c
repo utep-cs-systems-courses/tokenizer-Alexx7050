@@ -83,6 +83,14 @@ char *copy_str(char *inStr, short len)
   return new_string;
 }
 
+short str_length(char *str)
+{
+  short len;
+  for(int i = 0; str[i] != 0; i++)
+    len+=1;  //for each character in string
+  return len;
+}
+
 /* Returns a freshly allocated zero-terminated vector of freshly allocated 
    space-separated tokens from zero-terminated str.
 
